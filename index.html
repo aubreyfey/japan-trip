@@ -10,6 +10,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="phrasebook.css">
+  <link rel="stylesheet" href="print-guide.css">
+  <link rel="stylesheet" href="print-poster.css">
+  <link rel="stylesheet" href="browse-interactions.css">
+  <link rel="stylesheet" href="visual-upgrade.css">
   <link rel="stylesheet" href="map.css">
   <link rel="stylesheet" href="experience.css">
   <link rel="stylesheet" href="itinerary-enrichment.css">
@@ -31,6 +36,7 @@
     <section class="section emergency"><div><p class="eyebrow">Important</p><h2>Emergency contacts</h2><p><b>110</b> Police · <b>119</b> Fire / ambulance · <b>050-3816-2787</b> Japan Visitor Hotline</p></div><div><p class="eyebrow">Travel reminder</p><p>Carry your hotel address in Japanese and a charged power bank.</p></div></section>
   </main>
   <button id="top" class="top" aria-label="Back to top">↑</button>
+  <section id="print-guide" aria-hidden="true"></section>
   <dialog id="place-dialog"><button class="close" aria-label="Close">×</button><div id="dialog-content"></div></dialog>
   <dialog id="details-dialog"><form method="dialog" id="details-form"><button class="close" value="cancel" aria-label="Close">×</button><h2>Flight and hotel details</h2><label>Flight / airline<input id="detail-flight" placeholder="Add airline and flight number"></label><label>Arrival details<input id="detail-arrival" placeholder="Add Narita or Haneda arrival"></label><label>Tokyo hotel<input id="detail-tokyo" placeholder="Add hotel and closest station"></label><label>Kyoto hotel<input id="detail-kyoto" placeholder="Add hotel and closest station"></label><button class="button primary" value="save">Save details</button></form></dialog>
   <script src="app.js" defer></script>
@@ -40,4 +46,7 @@
   <script src="experience-renderer.js" defer></script>
   <script src="itinerary-enrichment.js" defer></script>
   <script src="phrasebook.js" defer></script>
+  <script src="print-guide.js" defer></script>
+  <script src="browse-interactions.js" defer></script>
+  <script src="visual-upgrade.js" defer></script>
 </body></html>

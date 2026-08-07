@@ -1,0 +1,4 @@
+function updateDayCount(){const count=window.tripContent?.itinerary?.length;if(count)document.querySelector('#day-progress').textContent=`Day ${state.day} of ${count}`}
+document.addEventListener('trip-data-loaded',updateDayCount);document.addEventListener('click',event=>{if(event.target.closest('[data-day]'))setTimeout(updateDayCount,0)});
+document.addEventListener('trip-data-loaded',()=>{const board=document.querySelector('#map-board');if(!board||board.querySelector('.map-controls'))return;board.insertAdjacentHTML('beforeend','<div class="map-controls"><button data-map-zoom="in" aria-label="Zoom map in">+</button><button data-map-zoom="out" aria-label="Zoom map out">−</button></div>');});
+document.addEventListener('click',event=>{const zoom=event.target.closest('[data-map-zoom]');if(!zoom)return;document.querySelector('#map-board').classList.toggle('zoomed',zoom.dataset.mapZoom==='in')});
