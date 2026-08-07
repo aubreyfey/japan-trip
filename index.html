@@ -15,6 +15,8 @@
   </head>
   <body>
     <div class="app-loader" id="appLoader" aria-live="polite"><div class="loader-mark">J</div><p>Preparing your Japan route</p><span></span></div>
+    <style>@keyframes loaderFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}.app-loader{animation:loaderFailsafe 0s 2.2s forwards}</style>
+    <script>window.setTimeout(function(){var loader=document.getElementById('appLoader');if(loader){loader.classList.add('done')}},700);</script>
     <div class="scroll-indicator" aria-hidden="true"><span id="scrollProgress"></span></div>
     <header class="site-header" id="top">
       <a class="brand" href="#overview" aria-label="Japan Escape overview"><span>J</span> Japan Escape</a>

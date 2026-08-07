@@ -3,7 +3,7 @@
   const store = { get(k, fallback) { try { return JSON.parse(localStorage.getItem(k)) ?? fallback; } catch { return fallback; } }, set(k, v) { localStorage.setItem(k, JSON.stringify(v)); } };
   const fmt = (n) => `¥${Math.round(Number(n || 0)).toLocaleString('en-US')}`;
   const mapUrl = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
-  const stops = ['Tokyo hotel','Shibuya','Meiji Jingu','Harajuku','Shinjuku','Senso-ji Temple','Akihabara','Tokyo Station','Odaiba','Kyoto hotel','Fushimi Inari Taisha','Gion','Yasaka Shrine','Kiyomizu-dera','Ninenzaka & Sannenzaka','Arashiyama Bamboo Grove'];
+  const stops = ['Tokyo hotel','Shibuya','Meiji Jingu','Harajuku','Shinjuku','Senso-ji Temple','Akihabara','Tokyo Station','Odaiba','Kyoto hotel','Fushimi Inari Taisha','Gion','Yasaka Shrine','Kiyomizu-dera','Ninenzaka & Sannenzaka','Arashiyama Bamboo Grove','Narita International Airport (NRT)'];
   const transport = {
     'Tokyo hotel|Shibuya':['JR / Metro','15-25 min','¥180-220','5-10 min walk from station'],
     'Shibuya|Meiji Jingu':['JR Yamanote','13 min','¥150','8 min walk from Harajuku Station'],
@@ -18,7 +18,8 @@
     'Gion|Yasaka Shrine':['Walk','8 min','FREE','Flat, easy evening connection'],
     'Yasaka Shrine|Kiyomizu-dera':['Walk / taxi','22 min walk','FREE / ~¥1,000 taxi','Hilly route; taxi is sensible in rain'],
     'Kiyomizu-dera|Ninenzaka & Sannenzaka':['Walk','6 min','FREE','Steep but direct'],
-    'Kyoto hotel|Arashiyama Bamboo Grove':['JR Sagano Line','32 min','¥240','12 min walk from Saga-Arashiyama']
+    'Kyoto hotel|Arashiyama Bamboo Grove':['JR Sagano Line','32 min','¥240','12 min walk from Saga-Arashiyama'],
+    'Kyoto hotel|Narita International Airport (NRT)':['Shinkansen + Narita Express','4 hr 30 min–5 hr 30 min','~¥17,500','Kyoto Station → Nozomi to Tokyo → Narita Express. Build in a 90-minute airport buffer.']
   };
   const readiness = ['Passport / wallet / IC card','Phone and power bank','Weather layer or compact umbrella','Hotel key and offline route','Water and small trash bag'];
 
@@ -58,7 +59,9 @@
     $('#dailyChecklist').dataset.day = day;
   }
   function renderFlights() {
-    const f = store.get('japan-flight', { airline:'Add airline', outbound:'Add outbound flight', returnFlight:'Add return flight', terminal:'Add terminal', notes:'Add baggage and transfer notes' });
+    const defaults = { airline:'Add airline', outbound:'Add arrival flight', returnFlight:'Narita International Airport (NRT)', terminal:'Add terminal', notes:'Dec 10: Kyoto Station → Nozomi to Tokyo → Narita Express. Allow 4.5–5.5 hours.' };
+    const f = { ...defaults, ...store.get('japan-flight', {}) };
+    if (f.returnFlight === 'Add return flight') f.returnFlight = defaults.returnFlight;
     $('#flightDetails').innerHTML = `<span>Airline<strong>${f.airline}</strong></span><span>Outbound<strong>${f.outbound}</strong></span><span>Return<strong>${f.returnFlight}</strong></span><span>Terminal<strong>${f.terminal}</strong></span><span>Notes<strong>${f.notes}</strong></span>`;
   }
   function renderWeather() {
@@ -70,7 +73,7 @@
     ].map(([icon,title,text]) => `<div class="weather-row"><i data-lucide="${icon.toLowerCase()}"></i><div><strong>${title}</strong><span>${text}</span></div></div>`).join('');
   }
   function downloadItinerary() {
-    const text = itinerary.map(d => `${d.date} - ${d.title}\n${d.blocks.map(([period,items]) => `${period}: ${items.map(i => i[0]).join(' → ')}`).join('\n')}\n`).join('\n') + '\nDec 10: Departure checklist and airport transfer.';
+    const text = itinerary.map(d => `${d.date} - ${d.title}\n${d.blocks.map(([period,items]) => `${period}: ${items.map(i => i[0]).join(' → ')}`).join('\n')}\n`).join('\n') + '\nDec 10: Kyoto Station → Nozomi to Tokyo → Narita Express to Narita International Airport (NRT). Allow 4.5–5.5 hours door to terminal.';
     const url = URL.createObjectURL(new Blob([text], {type:'text/plain'}));
     const a = Object.assign(document.createElement('a'), { href:url, download:'japan-escape-itinerary.txt' });
     a.click(); URL.revokeObjectURL(url);
