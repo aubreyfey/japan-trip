@@ -1,120 +1,43 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A practical Tokyo and Kyoto trip planner for December 3 to 10." />
-    <title>Japan Escape | Tokyo + Kyoto</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="premium.css" />
-    <link rel="stylesheet" href="premium-finish.css" />
-    <link rel="stylesheet" href="smart.css" />
-  </head>
-  <body>
-    <div class="app-loader" id="appLoader" aria-live="polite"><div class="loader-mark">J</div><p>Preparing your Japan route</p><span></span></div>
-    <style>@keyframes loaderFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}.app-loader{animation:loaderFailsafe 0s 2.2s forwards}</style>
-    <script>window.setTimeout(function(){var loader=document.getElementById('appLoader');if(loader){loader.classList.add('done')}},700);</script>
-    <div class="scroll-indicator" aria-hidden="true"><span id="scrollProgress"></span></div>
-    <header class="site-header" id="top">
-      <a class="brand" href="#overview" aria-label="Japan Escape overview"><span>J</span> Japan Escape</a>
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#overview">Overview</a><a href="#itinerary">Itinerary</a><a href="#map">Map</a><a href="#explore">Explore</a><a href="#budget">Budget</a><a href="#essentials">Essentials</a>
-      </nav>
-      <div class="header-actions">
-        <span class="city-pill" id="cityPill"><i data-lucide="map-pin"></i> Tokyo</span>
-        <button class="icon-button theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme"><i data-lucide="moon"></i></button>
-        <button class="icon-button menu-toggle" type="button" aria-label="Open navigation" title="Open navigation"><i data-lucide="menu"></i></button>
-      </div>
-    </header>
-
-    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
-      <div class="mobile-menu-head"><strong>Japan Escape</strong><button class="icon-button menu-close" type="button" aria-label="Close navigation" title="Close navigation"><i data-lucide="x"></i></button></div>
-      <a href="#overview">Overview</a><a href="#itinerary">Itinerary</a><a href="#map">Map</a><a href="#explore">Explore</a><a href="#budget">Budget</a><a href="#essentials">Essentials</a>
-    </aside>
-
-    <main>
-      <section class="overview" id="overview">
-        <div class="overview-copy">
-          <p class="eyebrow">Japan / Winter itinerary</p>
-          <h1>Tokyo <em>+</em> Kyoto</h1>
-          <p class="trip-dates">December 3–10 <span>·</span> 7 days <span>·</span> Planning workspace</p>
-          <div class="overview-actions"><button class="button primary" id="viewItinerary"><i data-lucide="route"></i> View itinerary</button><button class="button secondary" id="printTrip"><i data-lucide="printer"></i> Print plan</button></div>
-        </div>
-        <div class="overview-photo" role="img" aria-label="Tokyo city view at dusk"><div class="photo-overlay"><span><i data-lucide="calendar-days"></i> Dec 3–10</span><span><i data-lucide="map"></i> 2 cities</span></div></div>
-        <div class="dashboard-grid">
-          <article class="status-card"><span class="card-label">Planning status</span><strong>7 days mapped</strong><p>Core route, transit and alternatives are ready.</p><span class="status-dot">Ready to refine</span></article>
-          <article class="countdown-card"><span class="card-label">Trip countdown</span><strong id="countdown">—</strong><p>Set the trip year in the planner notes if this date changes.</p></article>
-          <article class="weather-card"><span class="card-label">Early December</span><div><i data-lucide="cloud-sun"></i><strong>8–14°C</strong></div><p>Tokyo is crisp. Kyoto mornings and evenings run colder; expect occasional rain.</p></article>
-          <article class="next-card"><span class="card-label">Next up</span><div id="nextUp"></div></article>
-        </div>
-      </section>
-
-      <section class="content-section day-section" id="itinerary">
-        <div class="section-heading"><div><p class="eyebrow">Day by day</p><h2>Your route, with room to breathe.</h2></div><div class="progress-wrap"><span id="progressText">Day 1 of 7</span><div class="progress"><span id="progressFill"></span></div></div></div>
-        <div class="day-tabs" id="dayTabs" role="tablist" aria-label="Itinerary days"></div>
-        <div class="itinerary-layout"><article class="day-card" id="dayCard" aria-live="polite"></article><aside class="day-side"><div class="leave-card" id="leaveCard"></div><div class="planning-panel"><p class="card-label">Day notes</p><textarea id="dayNotes" placeholder="Reservations, timings, or changes for this day…"></textarea><span class="save-state" id="notesSaved">Saved locally</span></div></aside></div>
-      </section>
-
-      <section class="content-section map-section" id="map">
-        <div class="section-heading"><div><p class="eyebrow">Route view</p><h2>Understand the day before you leave.</h2></div><span class="offline-note"><i data-lucide="wifi-off"></i> Google Maps opens online</span></div>
-        <div class="map-toolbar"><div class="filter-group" id="mapControls" aria-label="Map filters"></div><div class="transport-legend"><span><i data-lucide="footprints"></i> Walk</span><span><i data-lucide="train-front"></i> Rail</span><span><i data-lucide="train"></i> Shinkansen</span></div></div>
-        <div class="map-layout"><div class="map-canvas" id="mapCanvas" aria-label="Interactive trip map"></div><aside class="route-summary" id="routeSummary"></aside></div>
-      </section>
-
-      <section class="content-section explore-section" id="explore">
-        <div class="section-heading"><div><p class="eyebrow">Places</p><h2>Explore without losing the route.</h2></div><label class="search-field"><i data-lucide="search"></i><input id="tripSearch" type="search" placeholder="Search places, food, itinerary…" aria-label="Search trip" /></label></div>
-        <div class="explore-filters"><div class="filter-group" id="cityFilters"></div><div class="filter-group" id="costFilters"></div><div class="filter-group" id="typeFilters"></div><button class="filter-button" id="savedOnly"><i data-lucide="heart"></i> Saved</button></div>
-        <div class="attraction-grid" id="attractionGrid"></div>
-        <section class="saved-section"><div><p class="eyebrow">Shortlist</p><h3>Saved places</h3></div><div id="savedPlaces" class="saved-places"><p>Save places from Explore to build your shortlist.</p></div></section>
-      </section>
-
-      <section class="content-section budget-section" id="budget">
-        <div class="section-heading"><div><p class="eyebrow">Money</p><h2>A budget with an honest buffer.</h2><p class="section-copy">Planning estimates only. Prices, exchange rates and seasonal admissions change.</p></div><div class="segmented" role="group" aria-label="Budget view"><button class="active" data-budget-mode="person">Per person</button><button data-budget-mode="trip">Trip total</button></div></div>
-        <div class="budget-dashboard"><article class="budget-total"><span class="card-label">Planned total</span><strong id="budgetTotal">¥0</strong><p id="budgetModeLabel">Per person · 7 days</p><div class="budget-ring" id="budgetRing"><span id="budgetSpent">¥0 logged</span></div></article><div class="budget-categories" id="budgetCategories"></div></div>
-          <div class="expense-layout"><form class="expense-form" id="expenseForm"><div><p class="eyebrow">Quick add</p><h3>Log a daily expense</h3></div><label>Description<input required id="expenseName" placeholder="Ramen in Shinjuku" /></label><label>Category<select id="expenseCategory"></select></label><label>Day<select id="expenseDay" aria-label="Expense day"><option value="1">Day 1</option><option value="2">Day 2</option><option value="3">Day 3</option><option value="4">Day 4</option><option value="5">Day 5</option><option value="6">Day 6</option><option value="7">Day 7</option></select></label><label>Amount (JPY)<input required id="expenseAmount" type="number" min="1" placeholder="1200" /></label><button class="button primary" type="submit"><i data-lucide="plus"></i> Add expense</button></form><div class="expense-list-wrap"><div class="list-title"><h3>Recent expenses</h3><button class="text-button" id="clearExpenses" type="button">Clear log</button></div><div id="expenseList" class="expense-list"></div></div></div>
-      </section>
-
-      <section class="content-section hotels-section" id="stays">
-        <div class="section-heading"><div><p class="eyebrow">Stays</p><h2>Lock down the geography.</h2><p class="section-copy">A bad hotel location costs hours. Add the exact details once booked.</p></div></div>
-        <div class="hotel-grid" id="hotelGrid"></div>
-      </section>
-
-      <section class="content-section operations-section" id="tools">
-        <div class="section-heading"><div><p class="eyebrow">Trip operations</p><h2>Run the trip, not just the itinerary.</h2><p class="section-copy">Everything here saves in this browser. It is useful planning state, not cloud backup.</p></div><div class="export-actions"><button class="button secondary" id="downloadItinerary"><i data-lucide="download"></i> Download itinerary</button><button class="button primary" id="printItinerary"><i data-lucide="file-down"></i> Print / PDF</button></div></div>
-        <div class="operations-grid">
-          <section class="operation-card calculator-card"><div class="card-title"><i data-lucide="calculator"></i><div><p class="eyebrow">Calculator</p><h3>Trip budget calculator</h3></div></div><div class="calculator-fields"><label>Travelers<input id="calcTravelers" type="number" min="1" value="2" /></label><label>Days<input id="calcDays" type="number" min="1" value="7" /></label><label>Daily food / person (JPY)<input id="calcFood" type="number" min="0" value="6000" /></label><label>Daily local travel / person (JPY)<input id="calcTransit" type="number" min="0" value="1500" /></label><label>Shopping buffer / person<input id="calcShopping" type="number" min="0" value="30000" /></label><label>Attractions / person<input id="calcAttractions" type="number" min="0" value="12000" /></label></div><div class="calculator-result"><span>Estimated trip total</span><strong id="calculatorTotal">¥0</strong><small id="calculatorBreakdown"></small></div></section>
-          <section class="operation-card currency-card"><div class="card-title"><i data-lucide="arrow-right-left"></i><div><p class="eyebrow">Currency</p><h3>Planning converter</h3></div></div><p class="small-note">Planning rates only: USD 1 = ¥150, PHP 1 = ¥2.60. Update these before travel.</p><div class="converter"><input id="currencyAmount" type="number" min="0" value="1000" aria-label="Amount" /><select id="currencyFrom" aria-label="Convert from"><option>JPY</option><option>USD</option><option>PHP</option></select><i data-lucide="arrow-right"></i><select id="currencyTo" aria-label="Convert to"><option>PHP</option><option>JPY</option><option>USD</option></select></div><strong id="currencyResult" class="currency-result">₱0</strong><div class="rate-chips"><span>¥150 / USD</span><span>¥2.60 / PHP</span></div></section>
-          <section class="operation-card weather-reco"><div class="card-title"><i data-lucide="cloud-sun"></i><div><p class="eyebrow">December conditions</p><h3>What to wear and do</h3></div></div><div id="weatherRecommendations"></div></section>
-          <section class="operation-card transport-planner"><div class="card-title"><i data-lucide="train-front"></i><div><p class="eyebrow">Transit</p><h3>Transportation planner</h3></div></div><label>Start<select id="transportStart"></select></label><label>Destination<select id="transportDestination"></select></label><div id="transportPlan" class="transport-plan"></div></section>
-          <section class="operation-card flight-card"><div class="card-title"><i data-lucide="plane"></i><div><p class="eyebrow">Flights</p><h3>Flight information</h3></div><button class="text-button" id="editFlights" type="button">Edit</button></div><div id="flightDetails" class="flight-details"></div></section>
-          <section class="operation-card qr-card"><div class="card-title"><i data-lucide="qr-code"></i><div><p class="eyebrow">Directions</p><h3>Maps QR code</h3></div></div><select id="qrDestination" aria-label="Map destination"></select><div id="qrCode" class="qr-code" aria-label="Google Maps QR code"></div><a id="qrMapLink" class="map-link" target="_blank" rel="noreferrer">Open Google Maps</a></section>
-          <section class="operation-card daily-card"><div class="card-title"><i data-lucide="check-square"></i><div><p class="eyebrow">Daily readiness</p><h3>Before leaving the hotel</h3></div></div><div class="day-check-tabs" id="dailyCheckTabs"></div><div id="dailyChecklist" class="daily-checklist"></div></section>
-          <section class="operation-card journal-card"><div class="card-title"><i data-lucide="notebook-pen"></i><div><p class="eyebrow">Trip journal</p><h3>Keep the good details</h3></div></div><label>Journal day<select id="journalDay"></select></label><textarea id="journalEntry" placeholder="What worked, what you ate, what you would repeat…"></textarea><span id="journalStatus" class="save-state">Saved locally</span></section>
-        </div>
-      </section>
-
-      <section class="content-section essentials-section" id="essentials">
-        <div class="section-heading"><div><p class="eyebrow">Essentials</p><h2>The details that keep a trip moving.</h2></div></div>
-        <div class="essentials-grid">
-          <section class="essentials-card transport-card"><div class="card-title"><i data-lucide="train-front"></i><div><p class="eyebrow">Transport</p><h3>Move with less friction.</h3></div></div><div id="transportGuide"></div></section>
-          <section class="essentials-card reservation-card"><div class="card-title"><i data-lucide="calendar-check"></i><div><p class="eyebrow">Before you go</p><h3>Reservations</h3></div></div><div id="reservationList"></div></section>
-          <section class="essentials-card packing-card"><div class="card-title"><i data-lucide="backpack"></i><div><p class="eyebrow">December packing</p><h3><span id="packingCount">0</span> packed</h3></div><button class="text-button" type="button" id="resetPacking">Reset</button></div><p class="small-note">Kyoto mornings and evenings feel colder than Tokyo.</p><div id="packingList" class="packing-list"></div><div class="progress"><span id="packingProgress"></span></div></section>
-          <section class="essentials-card tips-card"><div class="card-title"><i data-lucide="lightbulb"></i><div><p class="eyebrow">Know before you go</p><h3>Japan essentials</h3></div></div><div class="tip-grid" id="tipsGrid"></div></section>
-        </div>
-      </section>
-
-      <section class="content-section utility-section">
-        <div class="utility-grid"><section class="emergency-card"><p class="eyebrow">Emergency</p><h2>Keep this reachable.</h2><div class="emergency-numbers"><span><strong>110</strong> Police</span><span><strong>119</strong> Fire / ambulance</span><span><strong>050-3816-2787</strong> Visitor Hotline</span></div><p>Useful travel references. Confirm current numbers and hours before departure.</p></section><section class="phrases-card"><p class="eyebrow">Useful Japanese</p><h2>Small phrases, less friction.</h2><div class="phrase-grid" id="phraseGrid"></div></section><section class="departure-card"><p class="eyebrow">Dec 10</p><h2>Departure checklist</h2><div id="departureList"></div></section></div>
-      </section>
-    </main>
-
-    <nav class="floating-nav" aria-label="Quick navigation"><a href="#overview" title="Overview"><i data-lucide="layout-dashboard"></i></a><a href="#itinerary" title="Itinerary"><i data-lucide="route"></i></a><a href="#map" title="Map"><i data-lucide="map"></i></a><a href="#explore" title="Explore"><i data-lucide="compass"></i></a></nav>
-    <button class="back-to-top icon-button" id="backToTop" type="button" aria-label="Back to top" title="Back to top"><i data-lucide="arrow-up"></i></button>
-    <dialog class="modal" id="attractionDialog"><button class="icon-button dialog-close" type="button" aria-label="Close details" title="Close"><i data-lucide="x"></i></button><div id="dialogContent"></div></dialog>
-    <dialog class="modal hotel-modal" id="hotelDialog"><button class="icon-button dialog-close" type="button" aria-label="Close hotel editor" title="Close"><i data-lucide="x"></i></button><form id="hotelForm"><h2 id="hotelFormTitle">Hotel details</h2><input type="hidden" id="hotelCity" /><label>Hotel name<input id="hotelName" placeholder="Add hotel name" /></label><label>Neighbourhood<input id="hotelNeighborhood" placeholder="e.g. Shinjuku" /></label><label>Closest station<input id="hotelStation" placeholder="Add closest station" /></label><label>Address<input id="hotelAddress" placeholder="Add address" /></label><label>Booking reference<input id="hotelReference" placeholder="Add confirmation" /></label><label>Notes<textarea id="hotelNotes" placeholder="Breakfast, luggage storage, check-in details…"></textarea></label><div class="toggle-row"><label><input type="checkbox" id="hotelLuggage" /> Luggage storage</label><label><input type="checkbox" id="hotelLaundry" /> Laundry</label><label><input type="checkbox" id="hotelBreakfast" /> Breakfast</label></div><button class="button primary" type="submit">Save hotel details</button></form></dialog>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="script.js"></script><script src="premium.js"></script><script src="smart.js"></script>
-  </body>
-</html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f4ef">
+  <meta name="description" content="A practical seven-day Tokyo and Kyoto travel planner for December 3 to 10.">
+  <title>Japan Escape | Tokyo + Kyoto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="map.css">
+  <link rel="stylesheet" href="experience.css">
+  <link rel="stylesheet" href="itinerary-enrichment.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="progress" aria-hidden="true"><span id="scroll-progress"></span></div>
+  <header class="header"><a class="brand" href="#overview"><b>J</b> Japan Escape</a><nav aria-label="Main navigation"><a href="#itinerary">Itinerary</a><a href="#explore">Explore</a><a href="#budget">Budget</a><a href="#tools">Tools</a></nav><div class="header-actions"><span id="city-label" class="city-label">Tokyo</span><button id="theme" class="icon-button" aria-label="Switch color theme" title="Switch color theme">◐</button><button id="menu" class="icon-button menu-button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">☰</button></div></header>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation"><a href="#itinerary">Itinerary</a><a href="#explore">Explore</a><a href="#budget">Budget</a><a href="#tools">Tools</a></nav>
+  <main id="main">
+    <section id="overview" class="hero"><div class="hero-copy"><p class="eyebrow">Winter route · Dec 3–10</p><h1>Tokyo <i>+</i> Kyoto</h1><p class="lede">A calm, practical seven-day plan built around early starts, room to wander, and a clean route home through Narita.</p><div class="hero-actions"><a class="button primary" href="#itinerary">Open itinerary</a><button class="button quiet" id="print">Print / Save PDF</button></div></div><div class="hero-media" role="img" aria-label="Tokyo city at dusk"><div><span>7 days mapped</span><span id="countdown">Planning mode</span></div></div><div class="metrics"><article><small>Next up</small><strong id="next-stop">Shibuya arrival</strong><span id="next-detail">Day 1 · flexible arrival</span></article><article><small>Early December</small><strong>8–14°C</strong><span>Cool, dry days; Kyoto evenings colder</span></article><article><small>Planned spend</small><strong id="hero-budget">¥0</strong><span>Per person estimate</span></article></div></section>
+    <section id="itinerary" class="section"><header class="section-head"><div><p class="eyebrow">Day by day</p><h2>A route that respects time.</h2></div><p id="day-progress" class="subtle">Day 1 of 7</p></header><div id="day-tabs" class="day-tabs" role="tablist" aria-label="Trip days"></div><div class="itinerary-grid"><article id="day-view" class="day-view" aria-live="polite"></article><aside class="aside"><section><small>Leave-by planner</small><strong id="leave-by">Flexible arrival</strong><p id="route-note"></p></section><section><label for="day-notes">Notes for this day</label><textarea id="day-notes" placeholder="Reservation, timing, or packing note..."></textarea><span class="saved">Saved on this device</span></section></aside></div></section>
+    <section id="bookings" class="section muted-section"><header class="section-head"><div><p class="eyebrow">Booking desk</p><h2>Experiences and tours.</h2><p class="subtle">Details are editable on this device. Empty booking links intentionally remain unlinked until confirmed.</p></div></header><div id="experience-cards" class="experience-cards"></div></section>
+    <section id="explore" class="section muted-section"><header class="section-head"><div><p class="eyebrow">Explore</p><h2>Useful place details, not filler.</h2></div><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search places, food, or districts"></label></header><div class="filters"><div id="city-filters"></div><div id="cost-filters"></div><button id="saved-filter" class="filter">♡ Saved</button></div><div id="attractions" class="attractions"></div></section>
+    <section id="map" class="section"><header class="section-head"><div><p class="eyebrow">Map</p><h2>See the route before you leave.</h2><p class="subtle">Choose a city or the active day, then open any stop in Google Maps.</p></div><div id="map-filters" class="filters"></div></header><div class="map-layout"><div id="map-board" class="map-board" aria-label="Interactive trip map"></div><aside id="map-summary" class="map-summary"></aside></div></section>
+    <section id="budget" class="section"><header class="section-head"><div><p class="eyebrow">Budget</p><h2>Track the plan against reality.</h2></div><div class="toggle"><button class="active" data-mode="person">Per person</button><button data-mode="trip">Full trip</button></div></header><div class="budget-layout"><article class="total-card"><small>Estimated total</small><strong id="budget-total">¥0</strong><span id="budget-caption">Per person</span><div class="ring"><span id="logged-total">¥0 logged</span></div></article><div id="budget-categories" class="budget-categories"></div></div><div class="expense-layout"><form id="expense-form" class="expense-form"><h3>Log an expense</h3><label>Description<input id="expense-name" required placeholder="Ramen in Shinjuku"></label><label>Day<select id="expense-day"></select></label><label>Category<select id="expense-category"></select></label><label>JPY<input id="expense-amount" type="number" min="1" required placeholder="1200"></label><button class="button primary">Add expense</button></form><section class="expense-list"><header><h3>Recent expenses</h3><button id="clear-expenses" class="link-button">Clear</button></header><div id="expenses"></div></section></div></section>
+    <section id="tools" class="section muted-section"><header class="section-head"><div><p class="eyebrow">Trip tools</p><h2>Everything else in one place.</h2></div><button id="download" class="button quiet">Download itinerary</button></header><div class="tool-grid"><article><h3>Currency converter</h3><p>Planning rates: USD 1 = ¥150, PHP 1 = ¥2.60.</p><div class="converter"><input id="convert-amount" type="number" value="1000" min="0"><select id="convert-from"><option>JPY</option><option>USD</option><option>PHP</option></select><span>→</span><select id="convert-to"><option>PHP</option><option>JPY</option><option>USD</option></select></div><strong id="convert-result" class="converter-result">₱0</strong></article><article><h3>Departure: Kyoto to Narita</h3><p>Kyoto Station → Nozomi to Tokyo → Narita Express to NRT.</p><strong>Allow 4.5–5.5 hours</strong><span>Build in a 90-minute airport buffer.</span></article><article><h3>December packing</h3><div id="packing" class="checklist"></div></article><article><h3>Daily readiness</h3><div id="readiness" class="checklist"></div></article><article><h3>Flight + hotel details</h3><button id="edit-details" class="button quiet">Add details</button><div id="trip-details" class="details"></div></article><article><h3>Trip journal</h3><select id="journal-day"></select><textarea id="journal" placeholder="What worked today, what was worth repeating..."></textarea><span class="saved">Saved on this device</span></article></div></section>
+    <section id="phrasebook" class="section phrasebook"><header class="section-head"><div><p class="eyebrow">Useful Japanese</p><h2>Phrasebook for the moment you need it.</h2><p class="subtle">Tap a phrase to show it full-screen. Audio uses a Japanese device voice only when available.</p></div></header><div class="phrase-search"><input id="phrase-search" type="search" placeholder="Search English, Japanese, or romaji"><button id="phrase-favorites" class="filter">♡ Favorites</button></div><div id="phrase-categories" class="filters"></div><div id="essential-phrases" class="essentials-phrases"></div><div id="phrase-list" class="phrase-list"></div></section>
+    <section class="section emergency"><div><p class="eyebrow">Important</p><h2>Emergency contacts</h2><p><b>110</b> Police · <b>119</b> Fire / ambulance · <b>050-3816-2787</b> Japan Visitor Hotline</p></div><div><p class="eyebrow">Travel reminder</p><p>Carry your hotel address in Japanese and a charged power bank.</p></div></section>
+  </main>
+  <button id="top" class="top" aria-label="Back to top">↑</button>
+  <dialog id="place-dialog"><button class="close" aria-label="Close">×</button><div id="dialog-content"></div></dialog>
+  <dialog id="details-dialog"><form method="dialog" id="details-form"><button class="close" value="cancel" aria-label="Close">×</button><h2>Flight and hotel details</h2><label>Flight / airline<input id="detail-flight" placeholder="Add airline and flight number"></label><label>Arrival details<input id="detail-arrival" placeholder="Add Narita or Haneda arrival"></label><label>Tokyo hotel<input id="detail-tokyo" placeholder="Add hotel and closest station"></label><label>Kyoto hotel<input id="detail-kyoto" placeholder="Add hotel and closest station"></label><button class="button primary" value="save">Save details</button></form></dialog>
+  <script src="app.js" defer></script>
+  <script src="map.js" defer></script>
+  <script src="image-fix.js" defer></script>
+  <script src="data-loader.js" defer></script>
+  <script src="experience-renderer.js" defer></script>
+  <script src="itinerary-enrichment.js" defer></script>
+  <script src="phrasebook.js" defer></script>
+</body></html>
