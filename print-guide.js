@@ -14,9 +14,9 @@ function ensurePrintPreview() {
   if (document.querySelector('#print-preview')) return;
   const preview = document.createElement('dialog');
   preview.id = 'print-preview';
-  preview.innerHTML = '<button class="close" aria-label="Close preview">×</button><div class="preview-toolbar"><strong>Itinerary print preview</strong><button id="preview-print-action" class="button primary">Print / Save PDF</button></div><div id="print-preview-content"></div>';
+  preview.innerHTML = '<div class="preview-toolbar"><strong>Itinerary print preview</strong><div><button id="preview-close" class="button quiet">Close preview</button><button id="preview-print-action" class="button primary">Print / Save PDF</button></div></div><div id="print-preview-content"></div>';
   document.body.append(preview);
-  preview.querySelector('.close').addEventListener('click', () => preview.close());
+  preview.querySelector('#preview-close').addEventListener('click', () => preview.close());
   preview.querySelector('#preview-print-action').addEventListener('click', () => window.print());
 }
 function openPrintPreview() {
