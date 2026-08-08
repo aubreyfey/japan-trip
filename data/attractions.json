@@ -16,5 +16,6 @@
   {"name":"Ginza","city":"Tokyo","cost":"free","price":"FREE","duration":"2–3 hr","best":"Late morning","crowd":"Medium","tip":"Pair browsing with the booked craft experience.","image":"photo-1512453979798-5ea266f8880c","map":"Ginza Tokyo"},
   {"name":"Mount Omuro Izu","city":"Izu","cost":"paid","price":"To be confirmed","duration":"Full day tour","best":"Tour schedule","crowd":"Medium","tip":"Bring a wind layer for the summit.","image":"photo-1493976040374-85c8e12f0c0e","map":"Mount Omuro Izu"},
   {"name":"Osaka Castle","city":"Osaka","cost":"optional","price":"To be confirmed","duration":"2–3 hr","best":"Mid-afternoon","crowd":"Medium","tip":"Use the moat and outer grounds for photos.","image":"photo-1590559899731-a382839e5549","map":"Osaka Castle"},
+  {"name":"Nagoya Castle","city":"Nagoya","cost":"paid","price":"To be confirmed","duration":"2–3 hr","best":"Late morning","crowd":"Medium","tip":"Take the subway to Nagoyajo Station, then use the moat and Hommaru Palace exterior for photos.","image":"photo-1536098561742-ca998e48cbcc","map":"Nagoya Castle"},
 {"name":"Nara Park","city":"Nara","cost":"free","price":"FREE","duration":"Tour stop","best":"Tour schedule","crowd":"High","tip":"Keep deer crackers secure before you open them.","image":"photo-1490806843957-31f4c9a91c65","map":"Nara Park"}
 ]
